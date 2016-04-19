@@ -21,12 +21,36 @@ public class TestMe {
   }
 }
 
+// Protocols
+protocol CustomStringConvertible {
+    // Human-readable representation
+    var description : String{get}
+}
+
+protocol Mathematics {
+    func + (left: Money, right: Money) -> Money
+    func - (left: Money, right: Money) -> Money
+}
+
+// Double Extension
+extension Double {
+    var USD: Money { return Money(amount: self, currency: "USD") }
+    var EUR: Money { return Money(amount: self, currency: "EUR") }
+    var GBP: Money { return Money(amount: self, currency: "GBP") }
+    var YEN: Money { return Money(amount: self, currency: "YEN") } // Not sure if YEN was a typo
+    var CAN: Money { return Money(amount: self, currency: "CAN") }
+}
+
 ////////////////////////////////////
 // Money
 //
-public struct Money {
+public struct Money: CustomStringConvertible, Mathematics {
   public var amount : Double
   public var currency : String
+  
+    public var description : String {
+        get{return currency + String(amount)}
+    }
     
   init(amount: Double, currency: String) {
     self.amount = amount
@@ -86,6 +110,14 @@ public struct Money {
     let converted = self.convert(from.currency)
     return Money(amount: from.amount - converted.amount, currency: from.currency)
   }
+}
+
+func +(left: Money, right: Money) -> Money {
+    return Money(amount: left.amount + right.convert(left.currency).amount, currency: left.currency)
+}
+
+func -(left: Money, right: Money) -> Money {
+    return Money(amount: left.amount - right.convert(left.currency).amount, currency: left.currency)
 }
 
 ////////////////////////////////////
