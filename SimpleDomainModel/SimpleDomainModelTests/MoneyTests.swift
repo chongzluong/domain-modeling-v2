@@ -92,5 +92,59 @@ class MoneyTests: XCTestCase {
     XCTAssert(total.amount == 10)
     XCTAssert(total.currency == "GBP")
   }
+    
+  // NEW UNIT TESTS
+  // Descriptions
+  func testDescriptions() {
+    XCTAssert(tenUSD.description == "USD10.0")
+    XCTAssert(twelveUSD.description == "USD12.0")
+    XCTAssert(fiveGBP.description == "GBP5.0")
+    XCTAssert(fifteenEUR.description == "EUR15.0")
+    XCTAssert(fifteenCAN.description == "CAN15.0")
+  }
+    
+  // Mathematics
+  func testSamePlus() {
+    let result = tenUSD + tenUSD
+    XCTAssert(result.amount == 20)
+    XCTAssert(result.currency == "USD")
+  }
+    
+  func testSameMinus() {
+    let result = twelveUSD - tenUSD
+    XCTAssert(result.amount == 2)
+    XCTAssert(result.currency == "USD")
+  }
+
+  func testDifPlus() {
+    let result = tenUSD + fiveGBP
+    XCTAssert(result.amount == 20)
+    XCTAssert(result.currency == "USD")
+  }
+    
+  func testDifMinus() {
+    let result = twelveUSD - fiveGBP
+    XCTAssert(result.amount == 2)
+    XCTAssert(result.currency == "USD")
+  }
+    
+  // Extensions
+  func testExtensions() {
+    let USDtester = 10.0.USD
+    let EURtester = 10.0.EUR
+    let GBPtester = 10.0.GBP
+    let YENtester = 10.0.YEN
+    let CANtester = 10.0.CAN
+    XCTAssert(USDtester.amount == 10)
+    XCTAssert(USDtester.currency == "USD")
+    XCTAssert(EURtester.amount == 10)
+    XCTAssert(EURtester.currency == "EUR")
+    XCTAssert(GBPtester.amount == 10)
+    XCTAssert(GBPtester.currency == "GBP")
+    XCTAssert(YENtester.amount == 10)
+    XCTAssert(YENtester.currency == "YEN")
+    XCTAssert(CANtester.amount == 10)
+    XCTAssert(CANtester.currency == "CAN")
+  }
 }
 

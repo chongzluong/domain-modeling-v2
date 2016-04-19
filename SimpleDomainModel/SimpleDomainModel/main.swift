@@ -54,12 +54,13 @@ public struct Money: CustomStringConvertible, Mathematics {
     
   init(amount: Double, currency: String) {
     self.amount = amount
-    if (currency == "USD" || currency == "GBP" || currency == "EUR" || currency == "CAN") {
+    if (currency == "USD" || currency == "GBP" || currency == "EUR" || currency == "CAN" || currency == "YEN") {
         self.currency = currency
     } else {
         print(currency + " is not a valid currency type")
         exit(1)
     }
+    print(self.description)
   }
   
   public func convert(to: String) -> Money {
